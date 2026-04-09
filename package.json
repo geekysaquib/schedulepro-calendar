@@ -1,6 +1,6 @@
 {
   "name": "schedulepro-calendar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A professional, enterprise-grade staff reservation calendar component for React and Next.js. Features drag & drop scheduling, 5-minute precision, dark/light themes, and overlap stacking. Developed & designed by Mohammad Saquib Khan.",
   "author": {
     "name": "Mohammad Saquib Khan",
