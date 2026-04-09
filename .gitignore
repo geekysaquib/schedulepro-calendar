@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build output (optional — exclude if you don't want dist in git)
+dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Cache
+.next/
+.cache/
+*.tsbuildinfo

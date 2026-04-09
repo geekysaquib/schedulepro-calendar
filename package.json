@@ -1,0 +1,82 @@
+{
+  "name": "schedulepro-calendar",
+  "version": "1.0.0",
+  "description": "A professional, enterprise-grade staff reservation calendar component for React and Next.js. Features drag & drop scheduling, 5-minute precision, dark/light themes, and overlap stacking. Developed & designed by Mohammad Saquib Khan.",
+  "author": {
+    "name": "Mohammad Saquib Khan",
+    "email": "your-email@example.com",
+    "url": "https://github.com/yourusername"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "nextjs",
+    "calendar",
+    "scheduler",
+    "reservation",
+    "booking",
+    "staff-scheduling",
+    "drag-and-drop",
+    "timeline",
+    "enterprise",
+    "typescript"
+  ],
+  "homepage": "https://github.com/yourusername/schedulepro-calendar#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/schedulepro-calendar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/schedulepro-calendar/issues"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    },
+    "./styles": "./dist/styles.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --external react,react-dom,next",
+    "build:css": "copyfiles -u 2 src/styles/calendar.css dist/",
+    "build:all": "npm run build && npm run build:css",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "prepublishOnly": "npm run build:all",
+    "lint": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "next": ">=13.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/utilities": "^3.2.2",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^1.7.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "copyfiles": "^2.4.1",
+    "tsup": "^8.5.1",
+    "typescript": "^5"
+  }
+}

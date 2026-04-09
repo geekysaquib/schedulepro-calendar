@@ -1,0 +1,33 @@
+# Source files (consumers get compiled dist/ only)
+src/
+
+# Config files
+tsup.config.ts
+tsconfig.json
+.eslintrc*
+.prettierrc*
+
+# Dev tools
+node_modules/
+.git/
+.github/
+
+# Build artifacts that aren't the dist
+*.tsbuildinfo
+
+# Test files
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+coverage/
+
+# Next.js demo app (not part of the library)
+app/
+public/
+next.config.ts
+postcss.config.mjs
+
+# Misc
+.DS_Store
+*.log
