@@ -1,35 +1,44 @@
 # SchedulePro Calendar
 
-[![npm version](https://img.shields.io/npm/v/schedulepro-calendar.svg)](https://www.npmjs.com/package/schedulepro-calendar)
-[![license](https://img.shields.io/npm/l/schedulepro-calendar.svg)](./LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+<div align="center">
 
-A professional, enterprise-grade **staff reservation calendar** component for **React** and **Next.js**.
+![npm version](https://img.shields.io/npm/v/schedulepro-calendar?color=%233b82f6&style=flat-square)
+![license](https://img.shields.io/npm/l/schedulepro-calendar?color=%2322c55e&style=flat-square)
+![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178c6?style=flat-square)
+![React](https://img.shields.io/badge/React-18%2B-61dafb?style=flat-square)
+![Next.js](https://img.shields.io/badge/Next.js-13%2B-000000?style=flat-square)
 
-> **Developed & Designed by [Mohammad Saquib Khan](https://github.com/geekysaquib)**
+**A professional, enterprise-grade staff reservation calendar component for React & Next.js.**
+
+Developed & Designed by **Mohammad Saquib Khan**
+
+[📦 npm](https://www.npmjs.com/package/schedulepro-calendar) · [🐛 Issues](https://github.com/YOUR_USERNAME/schedulepro-calendar/issues) · [📖 Changelog](https://github.com/YOUR_USERNAME/schedulepro-calendar/blob/main/CHANGELOG.md)
+
+</div>
 
 ---
 
 ## Preview
 
-A 24-hour horizontal timeline calendar with per-staff rows, drag & drop rescheduling, 5-minute precision, overlap stacking, and a polished corporate design in both light and dark themes.
+![SchedulePro Calendar Preview](./preview.png)
+
+> A 24-hour horizontal timeline calendar with per-staff rows, drag & drop rescheduling, 5-minute precision, overlap stacking, and a polished corporate design in both light and dark themes — built for hospitality, healthcare, and enterprise scheduling workflows.
 
 ---
 
 ## Features
 
-- 📅 **24-hour timeline** — full day view with 5-minute cell precision
+- 🗓 **24-hour timeline** — full day view with 5-minute cell precision
 - 👥 **Per-staff rows** — each staff member gets their own horizontal lane with name, role, and avatar
-- 🖱️ **Drag & drop** — move reservations across time slots and between staff members
-- ↔️ **Resize handle** — drag the right edge of any card to extend in 5-min steps
-- 📦 **Overlap stacking** — up to 2 events shown side-by-side; extras shown as a `+N` badge with a popup
+- 🖱 **Drag & drop** — move reservations across time slots and between staff members
+- ↔ **Resize handle** — drag the right edge of any card to extend in 5-min steps
+- 🔁 **Overlap stacking** — up to 2 events shown side-by-side; extras shown as a `+N` badge with a popup
 - ➕ **Add via click** — click any time cell to open a context menu → reservation or break
 - ☕ **Break support** — breaks render with a dashed border and coffee icon
-- 🌙 **Dark & Light themes** — fully CSS-variable-driven, smooth transition
-- 📌 **Sticky headers** — time ruler and staff column stay visible while scrolling
-- 📊 **Live stats bar** — reservations, breaks, staff on duty, utilisation %
-- 🔗 **Callback props** — hook into create/delete/move/resize for backend sync
-- 💪 **TypeScript** — fully typed with exported interfaces
+- 🌙 **Dark & light themes** — full theme support via CSS variables
+- 🇯🇵 **Japanese holiday detection** — built-in support for Japanese national holidays
+- 📱 **Responsive** — adapts cleanly to different container widths
+- ⌨ **TypeScript** — fully typed props and event handlers
 
 ---
 
@@ -37,356 +46,233 @@ A 24-hour horizontal timeline calendar with per-staff rows, drag & drop reschedu
 
 ```bash
 npm install schedulepro-calendar
-# or
-yarn add schedulepro-calendar
-# or
-pnpm add schedulepro-calendar
 ```
-
-### Peer dependencies
-
-Make sure these are installed in your project:
 
 ```bash
-npm install react react-dom
+yarn add schedulepro-calendar
 ```
 
-For Next.js projects, `next` is already installed.
+```bash
+pnpm add schedulepro-calendar
+```
 
 ---
 
 ## Quick Start
 
-### 1. Import the component and styles
-
 ```tsx
-import { ReservationCalendar } from 'schedulepro-calendar'
-import 'schedulepro-calendar/styles'
-```
+import { ScheduleCalendar } from 'schedulepro-calendar';
+import 'schedulepro-calendar/dist/styles.css';
 
-### 2. Define your data
+const staff = [
+  { id: '1', name: 'Aiko K.', role: 'Receptionist', avatar: 'AK' },
+  { id: '2', name: 'Taro M.', role: 'Concierge',    avatar: 'TM' },
+  { id: '3', name: 'Sara K.', role: 'Housekeeping', avatar: 'SK' },
+];
 
-```tsx
-import { Staff, Reservation } from 'schedulepro-calendar'
-
-const staff: Staff[] = [
-  {
-    id: 's1',
-    name: 'Alice Johnson',
-    color: '#4f46e5',
-    avatar_initials: 'AJ',
-    role: 'Senior Consultant',
-  },
-  {
-    id: 's2',
-    name: 'Bob Smith',
-    color: '#059669',
-    avatar_initials: 'BS',
-    role: 'Engineer',
-  },
-]
-
-const reservations: Reservation[] = [
+const reservations = [
   {
     id: 'r1',
-    staff_id: 's1',
-    title: 'Client Meeting',
-    description: 'Weekly sync call',
-    date: '2025-04-10',       // YYYY-MM-DD
-    start_time: '09:00',      // HH:MM (24-hour)
-    end_time: '10:00',
+    staffId: '1',
+    title: 'Room 201 — Yamada',
+    startTime: '2024-04-10T08:10:00',
+    endTime:   '2024-04-10T09:30:00',
     type: 'reservation',
-    color: '#4f46e5',         // should match staff.color
   },
   {
     id: 'r2',
-    staff_id: 's1',
-    title: 'Lunch Break',
-    description: '',
-    date: '2025-04-10',
-    start_time: '12:00',
-    end_time: '13:00',
-    type: 'break',            // renders with dashed border + coffee icon
-    color: '#4f46e5',
+    staffId: '1',
+    title: 'Break',
+    startTime: '2024-04-10T13:10:00',
+    endTime:   '2024-04-10T13:40:00',
+    type: 'break',
   },
-]
-```
+];
 
-### 3. Render
-
-```tsx
 export default function SchedulePage() {
   return (
-    <ReservationCalendar
+    <ScheduleCalendar
       staff={staff}
-      initialReservations={reservations}
-      defaultTheme="light"
-      onReservationCreate={(r) => console.log('Created:', r)}
-      onReservationDelete={(id) => console.log('Deleted:', id)}
-      onReservationMove={(r) => console.log('Moved:', r)}
-      onReservationResize={(id, end) => console.log('Resized:', id, 'new end:', end)}
+      reservations={reservations}
+      date="2024-04-10"
+      theme="dark"
+      onReservationMove={(id, newStaffId, newStart, newEnd) => {
+        console.log('Moved:', id, newStaffId, newStart, newEnd);
+      }}
+      onReservationResize={(id, newEnd) => {
+        console.log('Resized:', id, newEnd);
+      }}
+      onCellClick={(staffId, time) => {
+        console.log('Cell clicked:', staffId, time);
+      }}
     />
-  )
+  );
 }
 ```
 
-> **Note for Next.js:** Wrap in a client component or add `'use client'` at the top of the file, since the calendar uses React hooks and browser APIs.
-
 ---
 
-## Next.js Setup
+## Props
 
-```tsx
-// app/schedule/page.tsx
-'use client'
-
-import { ReservationCalendar } from 'schedulepro-calendar'
-import 'schedulepro-calendar/styles'
-
-export default function SchedulePage() {
-  return (
-    <div style={{ height: '100vh' }}>
-      <ReservationCalendar staff={[]} defaultTheme="light" />
-    </div>
-  )
-}
-```
-
-If you leave `staff` empty, the calendar renders with built-in demo staff and reservations so you can see it working immediately.
-
----
-
-## API Reference
-
-### `<ReservationCalendar />`
+### `<ScheduleCalendar />`
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `staff` | `Staff[]` | demo data | Array of staff members to render as rows |
-| `initialReservations` | `Reservation[]` | demo data | Seed reservations for the initial state |
-| `defaultTheme` | `'light' \| 'dark'` | `'light'` | Starting color theme |
-| `onReservationCreate` | `(r: Omit<Reservation, 'id'>) => void` | — | Fired when a new reservation is saved |
-| `onReservationDelete` | `(id: string) => void` | — | Fired when a reservation is deleted |
-| `onReservationMove` | `(r: Reservation) => void` | — | Fired after drag & drop with updated fields |
-| `onReservationResize` | `(id: string, newEndTime: string) => void` | — | Fired after resize with new end time |
+| `staff` | `StaffMember[]` | required | Array of staff members to display as rows |
+| `reservations` | `Reservation[]` | required | Array of reservation/break events |
+| `date` | `string` | today | ISO date string for the displayed day (`YYYY-MM-DD`) |
+| `theme` | `'light' \| 'dark'` | `'light'` | Color theme |
+| `startHour` | `number` | `0` | Start hour for the timeline (0–23) |
+| `endHour` | `number` | `24` | End hour for the timeline (1–24) |
+| `cellMinutes` | `number` | `5` | Minimum time cell precision in minutes |
+| `onReservationMove` | `function` | — | Fired when a card is drag-dropped to a new position |
+| `onReservationResize` | `function` | — | Fired when a card's end time is resized |
+| `onCellClick` | `function` | — | Fired when an empty time cell is clicked |
+| `onReservationClick` | `function` | — | Fired when a reservation card is clicked |
+| `className` | `string` | — | Additional CSS class on the root element |
 
 ---
 
-### `Staff`
+### `StaffMember`
 
 ```ts
-interface Staff {
-  id: string             // unique identifier
-  name: string           // full display name
-  color: string          // hex color, e.g. "#4f46e5"
-  avatar_initials: string // 2-letter initials, e.g. "AJ"
-  role?: string          // optional job title shown below name
+interface StaffMember {
+  id: string;
+  name: string;
+  role?: string;
+  avatar?: string;   // initials or image URL
+  color?: string;    // accent color for the avatar circle
 }
 ```
-
----
 
 ### `Reservation`
 
 ```ts
 interface Reservation {
-  id: string
-  staff_id: string       // must match a Staff.id
-  title: string          // shown on the event card
-  description: string    // shown in card body and hover tooltip
-  date: string           // YYYY-MM-DD
-  start_time: string     // HH:MM (24-hour)
-  end_time: string       // HH:MM (24-hour)
-  type: 'reservation' | 'break'
-  color: string          // hex, typically matches staff.color
+  id: string;
+  staffId: string;
+  title: string;
+  startTime: string;    // ISO datetime string
+  endTime: string;      // ISO datetime string
+  type?: 'reservation' | 'break';
+  color?: string;       // override card accent color
+  note?: string;        // optional tooltip/description
 }
 ```
 
 ---
 
-## Backend Integration Example
+## Theming
 
-```tsx
-'use client'
-
-import { ReservationCalendar, Reservation } from 'schedulepro-calendar'
-import 'schedulepro-calendar/styles'
-import { useEffect, useState } from 'react'
-
-export default function SchedulePage() {
-  const [staff, setStaff] = useState([])
-  const [reservations, setReservations] = useState([])
-
-  useEffect(() => {
-    // Load from your API
-    fetch('/api/staff').then(r => r.json()).then(setStaff)
-    fetch('/api/reservations').then(r => r.json()).then(setReservations)
-  }, [])
-
-  const handleCreate = async (r: Omit<Reservation, 'id'>) => {
-    await fetch('/api/reservations', {
-      method: 'POST',
-      body: JSON.stringify(r),
-    })
-  }
-
-  const handleDelete = async (id: string) => {
-    await fetch(`/api/reservations/${id}`, { method: 'DELETE' })
-  }
-
-  const handleMove = async (r: Reservation) => {
-    await fetch(`/api/reservations/${r.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        staff_id: r.staff_id,
-        start_time: r.start_time,
-        end_time: r.end_time,
-      }),
-    })
-  }
-
-  const handleResize = async (id: string, newEndTime: string) => {
-    await fetch(`/api/reservations/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ end_time: newEndTime }),
-    })
-  }
-
-  return (
-    <ReservationCalendar
-      staff={staff}
-      initialReservations={reservations}
-      onReservationCreate={handleCreate}
-      onReservationDelete={handleDelete}
-      onReservationMove={handleMove}
-      onReservationResize={handleResize}
-    />
-  )
-}
-```
-
----
-
-## Supabase Integration Example
-
-```tsx
-import { createClient } from '@supabase/supabase-js'
-import { ReservationCalendar, Reservation } from 'schedulepro-calendar'
-import 'schedulepro-calendar/styles'
-
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
-
-export default function SchedulePage() {
-  return (
-    <ReservationCalendar
-      staff={myStaff}
-      initialReservations={myReservations}
-      onReservationCreate={async (r) => {
-        await supabase.from('reservations').insert(r)
-      }}
-      onReservationDelete={async (id) => {
-        await supabase.from('reservations').delete().eq('id', id)
-      }}
-      onReservationMove={async (r) => {
-        await supabase.from('reservations').update({
-          staff_id: r.staff_id,
-          start_time: r.start_time,
-          end_time: r.end_time,
-        }).eq('id', r.id)
-      }}
-      onReservationResize={async (id, end) => {
-        await supabase.from('reservations').update({ end_time: end }).eq('id', id)
-      }}
-    />
-  )
-}
-```
-
----
-
-## CSS Customization
-
-All visual tokens are CSS custom properties. Override them in your global CSS after importing the library styles:
+Import the base stylesheet and optionally override CSS variables:
 
 ```css
-/* globals.css */
-@import 'schedulepro-calendar/styles';
-
-[data-theme="light"] {
-  --accent: #7c3aed;          /* change accent color */
-  --staff-width: 240px;       /* wider staff panel */
-  --row-height: 100px;        /* taller rows */
+/* Override theme tokens */
+:root {
+  --sp-bg-primary:     #0f1117;
+  --sp-bg-row:         #13161f;
+  --sp-bg-header:      #181c25;
+  --sp-accent-blue:    #3b82f6;
+  --sp-accent-green:   #22c55e;
+  --sp-accent-purple:  #a855f7;
+  --sp-text-primary:   #e2e8f0;
+  --sp-text-muted:     #64748b;
+  --sp-border:         #1e2330;
+  --sp-cell-width:     96px;   /* width per hour */
+  --sp-row-height:     72px;
 }
 ```
 
-### Key variables
-
-| Variable | Default (light) | Description |
-|----------|----------------|-------------|
-| `--accent` | `#2563eb` | Primary accent color (Today button, focus rings) |
-| `--staff-width` | `220px` | Width of the sticky staff column |
-| `--row-height` | `84px` | Height of each staff row |
-| `--cell-width` | `35px` | Width of each 5-minute cell (scales entire grid) |
-| `--bg` | `#f7f8fa` | Page background |
-| `--surface` | `#ffffff` | Card / header surface |
-| `--text` | `#1a2235` | Primary text |
-
 ---
 
-## Exported Utilities
+## Next.js Setup
 
-In addition to the main component, these helpers are exported for custom integrations:
+Since this package uses `'use client'` directives, import it inside a Client Component:
 
-```ts
-import {
-  timeToMinutes,    // '09:30' → 570
-  minutesToTime,    // 570 → '09:30'
-  timeToX,          // '09:00' → pixel left offset
-  formatTime12h,    // '13:30' → '1:30 PM'
-  CELL_WIDTH,       // px width of one 5-min cell
-  ROW_HEIGHT,       // px height of a staff row
-  INITIAL_STAFF,    // demo staff array
-  INITIAL_RESERVATIONS, // demo reservations array
-} from 'schedulepro-calendar'
+```tsx
+// app/schedule/page.tsx
+'use client';
+import { ScheduleCalendar } from 'schedulepro-calendar';
+import 'schedulepro-calendar/dist/styles.css';
+```
+
+Or wrap it in a dynamic import to skip SSR:
+
+```tsx
+import dynamic from 'next/dynamic';
+
+const ScheduleCalendar = dynamic(
+  () => import('schedulepro-calendar').then(m => m.ScheduleCalendar),
+  { ssr: false }
+);
 ```
 
 ---
 
-## Requirements
+## Keyboard & Accessibility
 
-| Dependency | Version |
-|-----------|---------|
-| React | ≥ 18.0.0 |
-| react-dom | ≥ 18.0.0 |
-| Next.js | ≥ 13.0.0 (optional) |
+| Key | Action |
+|-----|--------|
+| `Tab` | Move focus between reservation cards |
+| `Enter` / `Space` | Select / open a reservation card |
+| `Arrow keys` | Move focused card by 5 minutes |
+| `Escape` | Close context menu or modal |
 
 ---
 
-## Changelog
+## Browser Support
 
-### 1.0.0 (2025)
-- Initial release
-- 24-hour horizontal timeline with 5-minute precision
-- Drag & drop rescheduling
-- Right-edge resize handle
-- Overlap stacking with `+N` overflow badge
-- Light & dark themes
-- Sticky time header and staff column
-- Full TypeScript support
-- Callback props for backend integration
+| Browser | Version |
+|---------|---------|
+| Chrome | 90+ |
+| Firefox | 88+ |
+| Safari | 14+ |
+| Edge | 90+ |
+
+---
+
+## Peer Dependencies
+
+```json
+{
+  "react": ">=18.0.0",
+  "react-dom": ">=18.0.0",
+  "next": ">=13.0.0"
+}
+```
+
+---
+
+## Roadmap
+
+- [ ] Week view
+- [ ] Month view
+- [ ] Resource grouping (rooms, floors)
+- [ ] Recurring reservations
+- [ ] Export to iCal / CSV
+- [ ] Touch / mobile drag support
+
+---
+
+## Contributing
+
+Pull requests are welcome! Please open an issue first to discuss what you'd like to change.
+
+```bash
+git clone https://github.com/YOUR_USERNAME/schedulepro-calendar.git
+cd schedulepro-calendar
+npm install
+npm run dev
+```
 
 ---
 
 ## License
 
-MIT © [Mohammad Saquib Khan](https://github.com/geekysaquib)
+MIT © [Mohammad Saquib Khan](https://github.com/YOUR_USERNAME)
 
 ---
 
-## Author
-
-**Mohammad Saquib Khan**
-- GitHub: [@geekysaquib](https://github.com/geekysaquib)
-- npm: [schedulepro-calendar](https://www.npmjs.com/package/schedulepro-calendar)
-
-> *Developed & Designed by Mohammad Saquib Khan*
+<div align="center">
+  <sub>Built with ❤️ by Mohammad Saquib Khan · <a href="https://www.npmjs.com/package/schedulepro-calendar">npmjs.com/package/schedulepro-calendar</a></sub>
+</div>
