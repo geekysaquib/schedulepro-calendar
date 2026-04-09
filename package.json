@@ -21,10 +21,10 @@
     "enterprise",
     "typescript"
   ],
-  "homepage": "https://github.com/yourusername/schedulepro-calendar#readme",
+  "homepage": "https://github.com/geekysaquib/schedulepro-calendar#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/schedulepro-calendar.git"
+    "url": "git+https://github.com/geekysaquib/schedulepro-calendar.git"
   },
   "bugs": {
     "url": "https://github.com/yourusername/schedulepro-calendar/issues"
